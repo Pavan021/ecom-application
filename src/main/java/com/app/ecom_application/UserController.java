@@ -21,12 +21,9 @@ public class UserController {
     @GetMapping("/api/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id)
     {
-        User user = userService.fetchUser(id);
-        if(user == null)
-        {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
+        return userService.fetchUser(id)
+                .map(ResponseEntity :: ok)
+                .orElseGet(()->ResponseEntity.notFound().build());
     }
 
     @PostMapping("/api/users")
@@ -34,5 +31,14 @@ public class UserController {
     {
         userService.addUser(user);
         return ResponseEntity.ok("User Created Successfully !!");
+    }
+
+    @PutMapping("/api/users/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id,  @RequestBody User user)
+    {
+        boolean isUpdated = userService.updateUser(id, user);
+        if(isUpdated)
+            return ResponseEntity.ok("User updated Successfully !!");
+        return ResponseEntity.notFound().build();
     }
 }
