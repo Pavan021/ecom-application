@@ -1,4 +1,4 @@
-package com.app.ecom_application;
+package com.app.ecom_application.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,15 +6,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "user_table")
-public class User {
+@Entity(name = "Addresses")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String street;
+    private String city;
+    private String state;
+    private String country;
+    private String zipcode;
+
+
 }
